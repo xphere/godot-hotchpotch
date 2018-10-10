@@ -1,0 +1,43 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://Transition/transition.material.tres" type="Material" id=1]
+[ext_resource path="res://Transition/fade-in.anim.tres" type="Animation" id=2]
+[ext_resource path="res://Transition/fade-out.anim.tres" type="Animation" id=3]
+
+[sub_resource type="Gradient" id=1]
+
+offsets = PoolRealArray( 0, 1 )
+colors = PoolColorArray( 1, 1, 1, 1, 1, 1, 1, 1 )
+
+[sub_resource type="GradientTexture" id=2]
+
+flags = 4
+gradient = SubResource( 1 )
+width = 1
+
+[node name="Transition" type="TextureRect"]
+material = ExtResource( 1 )
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 2
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+texture = SubResource( 2 )
+expand = true
+stretch_mode = 2
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+root_node = NodePath("..")
+autoplay = ""
+playback_process_mode = 1
+playback_default_blend_time = 0.0
+playback_speed = 1.0
+anims/FadeIn = ExtResource( 2 )
+anims/FadeOut = ExtResource( 3 )
+blend_times = [  ]
+
