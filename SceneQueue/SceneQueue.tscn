@@ -1,0 +1,30 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://SceneQueue/SceneQueue.gd" type="Script" id=1]
+[ext_resource path="res://Transition/Transition.tscn" type="PackedScene" id=2]
+[ext_resource path="res://SceneQueue/Queue.gd" type="Script" id=3]
+
+[node name="SceneQueue" type="Node"]
+script = ExtResource( 1 )
+_sections_unfolded = [ "Pause" ]
+
+[node name="Overlay" type="CanvasLayer" parent="."]
+pause_mode = 2
+layer = 128
+offset = Vector2( 0, 0 )
+rotation = 0.0
+scale = Vector2( 1, 1 )
+transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+_sections_unfolded = [ "Pause" ]
+
+[node name="Transition" parent="Overlay" instance=ExtResource( 2 )]
+_sections_unfolded = [ "Material", "Pause", "material" ]
+
+[node name="Current" type="Node" parent="."]
+_sections_unfolded = [ "Pause" ]
+
+[node name="Queue" type="Node" parent="."]
+script = ExtResource( 3 )
+_sections_unfolded = [ "Pause" ]
+
+[connection signal="ready" from="." to="." method="run"]
