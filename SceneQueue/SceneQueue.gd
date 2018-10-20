@@ -1,12 +1,14 @@
 extends Node
 
-onready var queue = $Queue
-onready var current: Node = $Current
-onready var transition_player: AnimationPlayer = $Overlay/Transition/AnimationPlayer
+export var transition_path : NodePath = ""
+
+onready var queue := $Queue
+onready var current := $Current
 
 
 func run() -> void:
 	var next
+	var transition = get_node(transition_path) if transition_path else null
 
 	while queue.has_next_scene():
 		pause()
@@ -17,8 +19,8 @@ func run() -> void:
 		current.add_child(next)
 		next.show()
 
-		transition_player.play("FadeOut")
-		yield(transition_player, "animation_finished")
+		if transition:
+			yield(transition.hide(), "completed")
 
 		unpause()
 
@@ -27,8 +29,8 @@ func run() -> void:
 		else:
 			yield(next, "tree_exited")
 
-		transition_player.play("FadeIn")
-		yield(transition_player, "animation_finished")
+		if transition:
+			yield(transition.show(), "completed")
 
 
 func pause() -> void:
