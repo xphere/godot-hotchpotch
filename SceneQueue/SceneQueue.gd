@@ -14,9 +14,8 @@ func run() -> void:
 		next = yield(queue.next(), "completed")
 		for child in current.get_children():
 			child.queue_free()
-
-		current.call_deferred("add_child", next)
-		next.call_deferred("show")
+		current.add_child(next)
+		next.show()
 
 		transition_player.play("FadeOut")
 		yield(transition_player, "animation_finished")
