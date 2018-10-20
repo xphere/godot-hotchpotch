@@ -43,7 +43,8 @@ func wait(path: String) -> void:
 func resource(path: String) -> Resource:
 	if not path in resources:
 		mutex.lock()
-		assert _is_loaded(path)
+		if not _is_loaded(path):
+			ErrorHandler.error("Resource '%s' is not loaded yet, call `wait(path) before." % path)
 		mutex.unlock()
 
 	return resources[path] if path in resources else null
@@ -54,7 +55,7 @@ func start() -> void:
 	mutex = Mutex.new()
 	ready = Semaphore.new()
 	loader = Thread.new()
-	assert loader.start(self, "_background_loader") == OK
+	ErrorHandler.check(loader.start(self, "_background_loader"))
 
 
 func stop() -> void:
@@ -64,7 +65,7 @@ func stop() -> void:
 	queued = []
 	resources = {}
 	mutex.unlock()
-	assert ready.post() == OK
+	ErrorHandler.check(ready.post())
 	loader.wait_to_finish()
 	mutex = null
 	ready = null
@@ -75,7 +76,7 @@ func _background_loader(_data) -> void:
 	var is_running = true
 
 	while is_running:
-		assert ready.wait() == OK
+		ErrorHandler.check(ready.wait())
 		mutex.lock()
 		while not queued.empty():
 			var loader = queued[0]
@@ -116,7 +117,6 @@ func _is_loaded(path: String) -> bool:
 
 
 func _set_resource(path: String, resource: Resource) -> void:
-	print("Resource loaded ", path, " at ", resource)
 	resources[path] = resource
 	emit_signal("load_finished", path)
 
@@ -128,4 +128,4 @@ func _queue_resource(path: String, in_front: bool = false) -> void:
 		queued.push_front(loader)
 	else:
 		queued.push_back(loader)
-	assert ready.post() == OK
+	ErrorHandler.check(ready.post())

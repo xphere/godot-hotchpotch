@@ -15,4 +15,5 @@ _global_script_class_icons={
 
 [autoload]
 
+ErrorHandler="*res://ErrorHandler/ErrorHandler.gd"
 BackgroundLoader="*res://Loader/BackgroundLoader.gd"
