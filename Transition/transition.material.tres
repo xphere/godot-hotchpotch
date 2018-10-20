@@ -1,25 +1,14 @@
-[gd_resource type="ShaderMaterial" load_steps=4 format=2]
+[gd_resource type="ShaderMaterial" load_steps=2 format=2]
 
 [ext_resource path="res://Transition/transition.shader" type="Shader" id=1]
-
-[sub_resource type="Gradient" id=1]
-
-offsets = PoolRealArray( 0, 1 )
-colors = PoolColorArray( 0, 0, 0, 1, 1, 1, 1, 1 )
-
-[sub_resource type="GradientTexture" id=2]
-
-flags = 4
-gradient = SubResource( 1 )
-width = 512
 
 [resource]
 
 render_priority = 0
 shader = ExtResource( 1 )
-shader_param/repeat = Vector2( 1, -1 )
-shader_param/value = 1.0
-shader_param/delta_smooth = 0.05
-shader_param/transition = SubResource( 2 )
-_sections_unfolded = [ "shader_param", "shader_param/transition" ]
+shader_param/repeat = Vector2( 1, 1 )
+shader_param/cutoff = 1.0
+shader_param/delta_cutoff = 0.05
+shader_param/inverted = false
+_sections_unfolded = [ "shader", "shader_param", "shader_param/mask", "shader_param/transition" ]
 
