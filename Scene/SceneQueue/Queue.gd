@@ -1,22 +1,34 @@
 extends Node
 
+"""
+Queues loading of all elements in the queue.
+"""
 export var do_preload : bool = false
 
+"""
+Check whether there's a queued scene before the current one.
+"""
 func has_next_scene() -> bool:
 	return get_child_count() > 0
 
+"""
+Get the next scene in the queue.
+Removes it from queue in order to `add_child(result)` to another node.
+"""
 func next() -> Node:
 	yield(get_tree(), "idle_frame")
 
 	var next := get_child(0)
+
+	# Special treatment to InstancePlaceholder
 	if next is InstancePlaceholder:
 		var path = next.get_instance_path()
 		BackgroundLoader.queue(path)
 		yield(BackgroundLoader.wait(path), "completed")
 		next.replace_by_instance(BackgroundLoader.resource(path))
 		next.queue_free()
+		next = get_child(0)
 
-	next = get_child(0)
 	remove_child(next)
 
 	return next
