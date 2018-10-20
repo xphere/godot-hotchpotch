@@ -1,7 +1,9 @@
 [gd_scene load_steps=3 format=2]
 
-[ext_resource path="res://SceneQueue/SceneQueue.gd" type="Script" id=1]
-[ext_resource path="res://SceneQueue/Queue.gd" type="Script" id=2]
+[ext_resource path="res://Scene/SceneQueue/SceneQueue.gd" type="Script" id=1]
+[ext_resource path="res://Scene/SceneQueue/Queue.gd" type="Script" id=2]
+
+
 
 [node name="SceneQueue" type="Node"]
 script = ExtResource( 1 )

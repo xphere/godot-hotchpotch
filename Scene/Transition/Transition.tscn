@@ -1,9 +1,11 @@
 [gd_scene load_steps=5 format=2]
 
-[ext_resource path="res://Transition/transition.material.tres" type="Material" id=1]
-[ext_resource path="res://Transition/Transition.gd" type="Script" id=2]
-[ext_resource path="res://Transition/fade-in.anim.tres" type="Animation" id=3]
-[ext_resource path="res://Transition/fade-out.anim.tres" type="Animation" id=4]
+[ext_resource path="res://Scene/Transition/transition.material.tres" type="Material" id=1]
+[ext_resource path="res://Scene/Transition/Transition.gd" type="Script" id=2]
+[ext_resource path="res://Scene/Transition/fade-in.anim.tres" type="Animation" id=3]
+[ext_resource path="res://Scene/Transition/fade-out.anim.tres" type="Animation" id=4]
+
+
 
 [node name="Transition" type="ViewportContainer"]
 material = ExtResource( 1 )
